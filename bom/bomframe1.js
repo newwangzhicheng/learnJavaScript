@@ -1,0 +1,1 @@
+console.log('window.frames["bomframe1"] :', window.frames["bomframe1"]);
