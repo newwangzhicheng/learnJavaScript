@@ -24,8 +24,35 @@ console.log('Array.prototype.slice.call(bodyNodeList, 0) :', Array.prototype.sli
 //第一个节点firstChild，最后一个节点lastChild
 // const firstNode = bodyNodeList[0];
 // const lastNode = bodyNodeList[bodyNodeList.length - 1];
-const firstNode = bodyNodeList.firstChild;
-const laseNode = bodyNodeList.lastChild;
+const firstNode = body.firstChild;
+const lastNode = body.lastChild;
 
-console.log('firstNode.previousSibling :', firstNode);
+console.log('firstNode.previousSibling :', firstNode.previousSibling);
 console.log('lastNode.nextSibling :', lastNode.nextSibling);
+console.log('firstNode.parentNode :', firstNode.parentNode);
+
+//插入成为最后一个节点
+const newNode = document.createElement('p');
+const returnedNode = body.insertBefore(newNode, null);
+console.log('newNode === body.lastChild :', newNode === body.lastChild);
+
+//插入到某个结点前面
+const newNode2 = document.createElement('h2');
+const returnedNode2 = body.insertBefore(newNode2, body.firstChild);
+console.log('newNode2 === body.firstChild :', newNode2 === body.firstChild);
+
+//用newNode2替换掉newNode
+const returnedNode3 = body.replaceChild(newNode2, newNode);
+console.log('body :', body);
+
+//true深复制所有节点，false浅复制节点本身
+const newNode3 = newNode2.cloneNode(false);
+body.appendChild(newNode3);
+
+//获取html元素
+const html = document.documentElement;
+const html2 = document.firstChild;
+const html3 = document.childNodes[0];
+console.log('html  :', html);
+console.log('html2  :', html2);
+console.log('html3  :', html3);
