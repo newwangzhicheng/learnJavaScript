@@ -1,3 +1,4 @@
+'use strict';
 //Node类型
 //结果是1（ELEMENT_NODE）
 console.log('document.body.nodeType :', document.body.nodeType);
@@ -148,7 +149,7 @@ console.log('nodeMap :', nodeMap);
 //返回属性及值
 const namedItemDir = h3ele.attributes.getNamedItem('dir');
 console.log('namedItemDir :', namedItemDir);
-console.log('typetypeof namedItemDir :',typeof namedItemDir);
+console.log('typetypeof namedItemDir :', typeof namedItemDir);
 
 //删除属性
 h3ele.attributes.removeNamedItem('dir');
@@ -158,3 +159,175 @@ h3ele.attributes.setNamedItem(namedItemDir);
 console.log('nodeMap :', nodeMap);
 
 //返回指定索引的节点
+const attr0 = h3ele.attributes.item(0);
+console.log('attr0 :', attr0);
+
+//指定值specified为true，否则为false
+console.log('h3ele.attributes[0].specified :', h3ele.attributes[0].specified);
+
+//有空格符和没空格符的区别
+//换行符会被认为是text，处理时可以用nodeType识别
+const list1 = document.getElementById('list1');
+const list2 = document.getElementById('list2');
+console.log('list1.childNodes :', list1.childNodes);
+console.log('list2.childNodes :', list2.childNodes);
+
+//下面两个node.childNodes不同
+list1.childNodes.forEach(node => {
+  //element类型的nodeValue为null,nodeName为标签名
+  if (node.nodeType === 1) console.log('list1: ', node.nodeName);
+
+  if (node.nodeType === 3) console.log('list1: ', node.nodeValue);
+
+  if (node.nodeType === 8) console.log('list1: ', node.nodeValue);
+});
+
+list2.childNodes.forEach(node => {
+  if (node.nodeType === 1) console.log('list2: ', node.nodeName);
+
+  if (node.nodeType === 3) console.log('list2: ', node.nodeValue);
+});
+
+//text类型相关的方法
+// h3ele.removeAttribute('dir');
+const h3Text = h3ele.childNodes[0];
+h3Text.appendData('?');
+
+/**
+ * 一个有趣的现象
+ * deleteData的方向时从左到右计数的
+ * 但是appendData添加的 ? 是第五个元素
+ * 由于dir方向的原因，? 显示在最左侧
+ * 所以字符的下缀为 [4,0,1,2,3]
+*/
+h3Text.deleteData(4, 1);
+
+/**
+ * dir rtl时插入的方式很诡异
+ * 插0 从右向左计数
+ * 插1 从左向右计数
+ * 可以插在length的位置，在最左侧
+ */
+h3Text.insertData(3, '!');
+
+/**
+ * 此时可以发现它是从左向右计数
+*/
+h3Text.replaceData(4, 1, '0');
+
+
+//创建文本节点
+const textNode1 = document.createTextNode("hello");
+const textNode2 = document.createTextNode("world");
+list1.appendChild(textNode1);
+list1.appendChild(textNode2);
+console.log('list1 :', list1);
+
+//合并两个textNode
+list1.normalize();
+
+//分割两个textNode
+list1.lastChild.splitText(10);
+
+//comment和text有同一个基类，方法相似，除了没有splitText
+
+//CDATASection和text有同一个基类，方法相似，除了没有splitText
+//CDATA只在xml中，html会误判为comment
+
+//DocumentType chrome不支持
+
+//DocumentFragment "轻量级"文档 可以保存一个html片段
+const fragment = document.createDocumentFragment();
+const ul = document.getElementById('list1');
+
+for (let i = 0; i < 2; i++) {
+  const li = document.createElement('li');
+  li.appendChild(document.createTextNode(`item ${i + 1}`));
+  fragment.appendChild(li);
+}
+
+ul.appendChild(fragment);
+
+//Attr类型,其对象有name,value,specified属性
+//specified指定true，默认false
+console.log('h3ele.attributes.item(1).nodeType :', h3ele.attributes.item(1).nodeType);
+
+//动态插入脚本的方法
+function loadScript(url) {
+  const script = document.createElement('script');
+
+  //这些算自定义属性吗，这样设置有用的呀
+  script.type = 'text/javascript';
+  script.src = url;
+
+  document.body.appendChild(script);
+}
+
+loadScript('./alertHello.js');
+
+//动态插入脚本方法，eval实现方法
+//针对IE7优化，IE7不支持
+function myEval (code) {
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  try {
+    script.appendChild(document.createTextNode(code));
+  } catch (ex) {
+    script.text = code;
+  }
+  document.body.appendChild(script);
+}
+
+myEval("console.log('this is my eval');");
+eval("console.log('this is official eval');");
+
+//动态加载外部样式
+function  loadStyle (url) {
+  const link = document.createElement('link');
+
+  //可以了 哈
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = url;
+
+  const head = document.head;
+  head.appendChild(link);
+}
+
+loadStyle('./index.css')
+
+//动态执行某种样式
+function myLoadStyle (css) {
+  const style = document.createElement('style');
+  style.type = "text/css";
+
+  try{
+    style.appendChild(document.createTextNode(css));
+  } catch (ex){
+    style.styleSheet.cssText = css;
+  }
+
+  const head = document.head;
+  head.appendChild(style);
+}
+
+myLoadStyle('body{background-color:yellow;}');
+
+//利用table的方法创建一个table
+const table = document.createElement('table');
+table.border = 1;
+table.width = '100%';
+
+const tbody = document.createElement('tbody');
+table.appendChild(tbody);
+
+//插入并创建第一行
+tbody.insertRow(0);
+tbody.rows[0].insertCell(0);
+tbody.rows[0].cells[0].appendChild(document.createTextNode('cell 1,1'));
+tbody.rows[0].insertCell(1);
+tbody.rows[0].cells[1].appendChild(document.createTextNode('cell 2,1'));
+
+//第二行一样  不高兴写了
+document.body.appendChild(table);
+
