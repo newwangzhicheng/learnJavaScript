@@ -56,3 +56,105 @@ const html3 = document.childNodes[0];
 console.log('html  :', html);
 console.log('html2  :', html2);
 console.log('html3  :', html3);
+
+//有关文档的信息
+//文档类型，和document.firstChild输出一致
+const doctype = document.doctype;
+console.log('html2 === doctype :', html2 === doctype);
+
+const docTitle = document.title;
+document.title = 'New Page';
+const url = document.title;
+
+//域，即主机名
+const domain = document.domain;
+
+//来源页面的url，即上一级的url
+const referrer = document.referrer;
+console.log('docTitle :', docTitle);
+console.log('domain :', domain);
+console.log('referrer :', referrer);
+
+//getElementByTagName 返回的结果类似NodeList,是HTMLCollection的对像
+const tagList = document.getElementsByTagName('h2');
+const allTagList = document.getElementsByTagName('*');
+console.log('tagList.item(0) :', tagList.item(0));
+console.log('allTagList :', allTagList);
+
+//HTMLCollectiond的namedItem方法，返回name属性的node
+console.log('tagList.namedItem("wzc") :', tagList.namedItem("wzc"));
+console.log('tagList["wzc"] :', tagList["wzc"]);
+
+//返回HTMLCollectiond类型
+const nameList = document.getElementsByName('wzc');
+console.log('nameList :', nameList);
+
+//所有带name的a元素
+const aList = document.anchors;
+console.log('aList :', aList);
+
+//所有带href的a元素
+const aHrefList = document.links;
+console.log('aHrefList :', aHrefList);
+
+//所有form元素
+const formList = document.forms;
+console.log('formList :', formList);
+
+//所有img元素
+const imageList = document.images;
+console.log('imageList :', imageList);
+
+const hasXmlDom = document.implementation.hasFeature('XML', '1.0');
+const hasCore3 = document.implementation.hasFeature('Core', '3.0')
+console.log('hasXmlDom :', hasXmlDom);
+console.log('hasCore3 :', hasCore3);
+
+//输出流写入到网页
+document.write('<p>this is writtened by docuemnt.wirte<\/p>');
+
+//html中node的tagName和nodeName大写， xml和源码一致
+console.log('body.tagName :', body.tagName);
+console.log('body.nodeName :', body.nodeName);
+
+//有关特性的方法
+const h3ele = document.getElementById('h3ele');
+console.log('h3ele.getAttribute("lang") :', h3ele.getAttribute("lang"));
+
+//添加特性
+h3ele.setAttribute('name', 'h3ele');
+console.log('h3ele.getAttribute("name") :', h3ele.getAttribute("name"));
+
+//删除特性
+h3ele.removeAttribute('name');
+console.log('h3ele.getAttribute("name") :', h3ele.getAttribute("name"));
+
+//自定义特性,不区分大小写
+h3ele.setAttribute('data-mYDAta', '12.12');
+console.log('h3ele.getAttribute("data-mydata") :', h3ele.getAttribute("data-mydata"));
+
+//node的属性和getAttribute不同：style， onclick
+//返回对象
+console.log('h3ele.style :', h3ele.style);
+
+//返回html中tyle特性值
+console.log('h3ele.getAttribute("style") :', h3ele.getAttribute("style"));
+
+//attributes返回NamedNodeMap，类似HTMLCollection
+const nodeMap = h3ele.attributes;
+console.log('nodeMap :', nodeMap);
+
+//attributes的一些方法
+//返回属性及值
+const namedItemDir = h3ele.attributes.getNamedItem('dir');
+console.log('namedItemDir :', namedItemDir);
+console.log('typetypeof namedItemDir :',typeof namedItemDir);
+
+//删除属性
+h3ele.attributes.removeNamedItem('dir');
+
+//添加属性节点
+h3ele.attributes.setNamedItem(namedItemDir);
+console.log('nodeMap :', nodeMap);
+
+//返回指定索引的节点
