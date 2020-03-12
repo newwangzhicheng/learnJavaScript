@@ -14,6 +14,12 @@
   }
   .yback-color {
     background-color: yellow;
+    color:yellowgreen;
+  }
+  .bigspace {
+    width: 100vw;
+    height: 100vh;
+    background-color: gray;
   }
 </style>
 <body>
@@ -26,5 +32,8 @@
   </p>
   <button id="uniqueBtn">唯一的按钮</button>
   <script src="./extendDom.js"></script>
+  <button onclick="viewP()">点击查看下面的元素</button>
+  <div class="bigspace"></div>
+  <p id="viewable" dir="rtl">这是页面下面的元素</p>
 </body>
 </html>
