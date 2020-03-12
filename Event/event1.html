@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>event1</title>
+</head>
+<body>
+  <!-- 把事件放在try catch中，防止函数在解析前就触发函数，引发错误 -->
+  <!-- 这里的trycatch是没有必要的 -->
+<input type="button" value="click me!!" onclick="try {console.log(returnValue());} catch (ex) {}">
+  <input type="button" value="click me" onclick="console.log(this.value);">
+  <input type="button" value="click me!"  onclick="console.log(value);">
+  <input type="button" value="dom0btn" id="dom0btn">
+  <input type="button" value="dom2btn" id="dom2btn">
+  <input type="button" value="dombtn" id="dombtn">
+  <input type="button" value="eventObj" id="eventObj" onclick="console.log(event.type);">
+  <form>
+    <input type="text" name="username" id="i_username" value="wzc">
+    <input type="button" value="Echo username" onclick="console.log(username.value);">
+  </form>
+  <script src="./event1.js"></script>
+</body>
+</html>

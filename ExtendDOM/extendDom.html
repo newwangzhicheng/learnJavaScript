@@ -7,7 +7,12 @@
 </head>
 <style>
   .bcolor {
-    color:beige;
+    color:yellowgreen;
+  }
+  .bigspace {
+    width: 100vw;
+    height: 100vh;
+    background-color: gray;
   }
 </style>
 <body>
@@ -16,5 +21,8 @@
     <em id="emElem"></em>
   </p>
   <script src="./extendDom.js"></script>
+  <button onclick="viewP()">点击查看下面的元素</button>
+  <div class="bigspace"></div>
+  <p id="viewable" dir="rtl">这是页面下面的元素</p>
 </body>
 </html>
