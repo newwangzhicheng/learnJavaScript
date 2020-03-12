@@ -7,14 +7,24 @@
 </head>
 <style>
   .bcolor {
-    color:beige;
+    color:bisque;
+  }
+  .bigger-font {
+    font-size: 20px;
+  }
+  .yback-color {
+    background-color: yellow;
   }
 </style>
 <body>
   <p id="pElem">
-    <strong id="strongElem" class="bcolor">加重的元素</strong>
+    <strong id="strongElem" class="bcolor bigger-font" data-appid="1212">加重的元素
+      <em id="emElem" class="bcolor">里面的元素</em>
+    </strong>
+    <strong id="strongElem2" class="bcolor yback-color">加重的元素2</strong>
     <em id="emElem"></em>
   </p>
+  <button id="uniqueBtn">唯一的按钮</button>
   <script src="./extendDom.js"></script>
 </body>
 </html>
