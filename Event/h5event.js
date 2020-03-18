@@ -52,3 +52,21 @@ window.onload = () => {
     return false;
   };
 }
+
+//pageshow和pagehide
+(function () {
+  var showContent = 0;
+
+  window.addEventListener('load', () => {
+    console.log('load fired');
+  });
+
+  window.addEventListener('pageshow', (event) => {
+    showContent++;
+
+    //persisted false 页面没有被保存在内存中
+    console.log('show fired ' + showContent + ' times! ', event.persisted);
+  });
+})();
+
+//事件委托利用了事件冒泡的特性，在尽可能高的dom树元素里处理子元素所有事件
